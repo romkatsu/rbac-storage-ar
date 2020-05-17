@@ -1,0 +1,32 @@
+{
+    "name": "romkatsu/rbac-storage-ar",
+    "type": "library",
+    "description": "rbac active record storage",
+    "minimum-stability": "dev",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/romkatsu/rbac"
+        }
+    ],
+    "require": {
+        "php": "^7.4",
+        "yiisoft/rbac": "dev-redisign",
+        "yiisoft/active-record": "dev-master",
+        "psr/log": "^1.1",
+        "yiisoft/db-mysql": "^3.0@dev"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Yiisoft\\Rbac\\Storage\\ActiveRecord\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Yiisoft\\Rbac\\Storage\\ActiveRecord\\Tests\\": "tests"
+        }
+    }
+}
