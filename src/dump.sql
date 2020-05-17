@@ -31,7 +31,6 @@ CREATE TABLE `item` (
   `name` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `type` varchar(10) DEFAULT NULL,
-  `parent_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
