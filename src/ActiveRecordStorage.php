@@ -19,6 +19,9 @@ final class ActiveRecordStorage implements Storage
 {
     public function clear(): void
     {
+        ItemParentModel::deleteAll();
+        AssignmentModel::deleteAll();
+        RuleModel::deleteAll();
         ItemModel::deleteAll();
     }
 
@@ -297,7 +300,7 @@ final class ActiveRecordStorage implements Storage
 
     public function clearRules(): void
     {
-        // TODO: Implement clearRules() method.
+        RuleModel::deleteAll();
     }
 
     private function createItemsFromArray(array $items): array

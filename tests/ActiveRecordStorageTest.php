@@ -22,6 +22,7 @@ use Yiisoft\Rbac\Storage\ActiveRecord\ActiveRecordStorage;
 use Yiisoft\Rbac\Storage\ActiveRecord\ItemModel;
 use Yiisoft\Rbac\Storage\ActiveRecord\ItemParentModel;
 use Yiisoft\Rbac\Storage\ActiveRecord\RuleModel;
+use Yiisoft\Rbac\Storage\ActiveRecord\AssignmentModel;
 
 /**
  * Class ActiveRecordStorageTest
@@ -37,7 +38,11 @@ final class ActiveRecordStorageTest extends TestCase
     public function clearItems(): void
     {
         $this->createStorage()->clear();
-        $this->assertEquals(0, $this->seeCountItems());
+
+        $this->assertEmpty(ItemModel::find()->all());
+        $this->assertEmpty(AssignmentModel::find()->all());
+        $this->assertEmpty(ItemParentModel::find()->all());
+        $this->assertEmpty(RuleModel::find()->all());
     }
 
     /**
@@ -447,6 +452,15 @@ final class ActiveRecordStorageTest extends TestCase
         );
     }
 
+    public function testClearRules(): void
+    {
+        $storage = $this->createStorage();
+        $storage->clearRules();
+
+        $storage = $this->createStorage();
+        $this->assertCount(0, $storage->getRules());
+    }
+
     protected function setUp(): void
     {
         $this->loadDb();
@@ -498,19 +512,6 @@ final class ActiveRecordStorageTest extends TestCase
     private function getConnection(): Connection
     {
         return ConnectionPool::getConnectionPool('default');
-    }
-
-    /**
-     * @return int
-     * @throws \Yiisoft\Db\Exception\Exception
-     * @throws \Yiisoft\Db\Exception\InvalidArgumentException
-     * @throws \Yiisoft\Db\Exception\InvalidConfigException
-     */
-    private function seeCountItems(): int
-    {
-        $query = $this->getConnection()->createCommand('select count(*) as count from item LIMIT 1')->queryOne();
-
-        return (int)$query['count'];
     }
 
     private function seeInDatabase(string $model, array $conditions): void
